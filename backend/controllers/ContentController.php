@@ -2,6 +2,7 @@
 
 namespace addons\RfOnlineDoc\backend\controllers;
 
+use addons\RfOnlineDoc\backend\forms\ContentForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 use common\components\Curd;
@@ -74,24 +75,40 @@ class ContentController extends BaseController
      */
     public function actionEdit()
     {
-        $request = Yii::$app->request;
-        $id = $request->get('id');
-        $model = $this->findModel($id);
+        $id = Yii::$app->request->get('id');
+        $model = $this->findFormModel($id);
         $model->doc_id = $this->doc_id;
-        $model->pid = $request->get('pid', null) ?? $model->pid; // 父id
+        $model->pid = Yii::$app->request->get('pid', null) ?? $model->pid; // 父id
         !$model->uuid && $model->uuid = StringHelper::uuid('uniqid');
 
-        // ajax 验证
-        $this->activeFormValidate($model);
-        if ($model->load(Yii::$app->request->post())) {
-            return $model->save()
-                ? $this->redirect(['index', 'doc_id' => $this->doc_id])
-                : $this->message($this->getError($model), $this->redirect(['index', 'doc_id' => $this->doc_id]), 'error');
+        if (!$model->tmp_history_id) {
+            $model->tmp_history_id = Yii::$app->docServices->contentHistory->getLastIdByContentId($id);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'doc_id' => $this->doc_id]);
         }
 
         return $this->render($this->action->id, [
             'model' => $model,
             'dropDownList' => Yii::$app->docServices->content->getEditDropDownList($id),
+        ]);
+    }
+
+    /**
+     * 差异对比
+     *
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionDifference()
+    {
+        $tmp_history_id = Yii::$app->request->get('tmp_history_id');
+        $content_id = Yii::$app->request->get('content_id');
+
+        return $this->renderAjax($this->action->id, [
+            'changed' => Yii::$app->docServices->contentHistory->getLastByContentId($content_id),
+            'original' => Yii::$app->docServices->contentHistory->findById($tmp_history_id),
         ]);
     }
 
@@ -172,5 +189,22 @@ class ContentController extends BaseController
         }
 
         return $this->message("删除失败", $this->redirect(['index', 'doc_id' => $this->doc_id]), 'error');
+    }
+
+    /**
+     * 返回模型
+     *
+     * @param $id
+     * @return \yii\db\ActiveRecord
+     */
+    protected function findFormModel($id)
+    {
+        /* @var $model \yii\db\ActiveRecord */
+        if (empty($id) || empty(($model = ContentForm::find()->where(['id' => $id])->andFilterWhere(['merchant_id' => $this->getMerchantId()])->one()))) {
+            $model = new ContentForm();
+            return $model->loadDefaultValues();
+        }
+
+        return $model;
     }
 }

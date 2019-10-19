@@ -65,6 +65,36 @@ class ContentHistoryService extends Service
     }
 
     /**
+     * 获取最大的历史记录id
+     *
+     * @param $content_id
+     * @return false|int|string|null
+     */
+    public function getLastIdByContentId($content_id)
+    {
+        return ContentHistory::find()
+                ->where(['content_id' => $content_id])
+                ->select('id')
+                ->orderBy('id desc')
+                ->scalar();
+    }
+
+    /**
+     * 获取最大的历史记录
+     *
+     * @param $content_id
+     * @return false|int|string|null
+     */
+    public function getLastByContentId($content_id)
+    {
+        return ContentHistory::find()
+            ->where(['content_id' => $content_id])
+            ->orderBy('id desc')
+            ->asArray()
+            ->one();
+    }
+
+    /**
      * 获取递增
      *
      * @param $content_id

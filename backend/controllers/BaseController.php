@@ -2,6 +2,7 @@
 
 namespace addons\RfOnlineDoc\backend\controllers;
 
+use common\helpers\AddonHelper;
 use Yii;
 use common\controllers\AddonsController;
 
@@ -17,4 +18,15 @@ class BaseController extends AddonsController
     * @var string
     */
     // public $layout = "@addons/RfOnlineDoc/backend/views/layouts/main";
+
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function init()
+    {
+        parent::init();
+
+        // 注册资源
+        AddonHelper::filePath();
+    }
 }

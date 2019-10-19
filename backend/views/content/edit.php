@@ -2,6 +2,7 @@
 
 use yii\widgets\ActiveForm;
 use common\enums\StatusEnum;
+use common\helpers\Html;
 
 $this->title = $model->isNewRecord ? '创建' : '编辑';
 $this->params['breadcrumbs'][] = ['label' => '文档管理', 'url' => ['doc/index']];
@@ -26,8 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'sort')->textInput(); ?>
                 <?= $form->field($model, 'status')->radioList(StatusEnum::$listExplain); ?>
                 <?= $form->field($model, 'content')->widget(\common\widgets\markdown\Markdown::class); ?>
+                <?= $form->field($model, 'tmp_history_id')->hiddenInput()->label(false); ?>
+                <?= $form->field($model, 'is_compel')->checkbox(); ?>
             </div>
             <div class="box-footer text-center">
+
+                <?php if ($model->is_difference == StatusEnum::ENABLED) { ?>
+                    <?= Html::linkButton(['difference', 'content_id' => $model->id, 'tmp_history_id' => $model->tmp_history_id], '差异对比', [
+                            'data-toggle' => 'modal',
+                            'data-target' => '#ajaxModalMax',
+                        ]); ?>
+                <?php } ?>
                 <button class="btn btn-primary" type="submit">保存</button>
                 <span class="btn btn-white" onclick="history.go(-1)">返回</span>
             </div>

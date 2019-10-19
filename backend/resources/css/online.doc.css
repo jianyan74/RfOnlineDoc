@@ -1,0 +1,17 @@
+del,
+.demo-del {
+    background-color: #ffc6c6;
+}
+
+ins {
+    background-color: #c6ffc6;
+    text-decoration: none;
+}
+
+.diff-wrapper {
+    padding-top: 20px;
+}
+
+.mailbox-attachment-info {
+    margin-bottom: 5px;
+}

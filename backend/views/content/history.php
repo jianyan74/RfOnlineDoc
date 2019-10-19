@@ -8,26 +8,6 @@ use common\helpers\Html;
 <?= Html::jsFile('@web/resources/plugins/diff_match_patch/diff_match_patch.js'); ?>
 <?= Html::jsFile('@web/resources/plugins/diff_match_patch/jquery.pretty-text-diff.min.js'); ?>
 
-<style>
-    del,
-    .demo-del {
-        background-color: #ffc6c6;
-    }
-
-    ins {
-        background-color: #c6ffc6;
-        text-decoration: none;
-    }
-
-    .diff-wrapper {
-        padding-top: 20px;
-    }
-
-    .mailbox-attachment-info {
-        margin-bottom: 5px;
-    }
-</style>
-
 <div class="row diff-wrapper">
     <div class="col-lg-12">
         <div class="col-lg-9">
