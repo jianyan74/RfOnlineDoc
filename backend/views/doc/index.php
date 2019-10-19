@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 },
                                 'content' => function ($url, $model, $key) {
-                                    return Html::linkButton(['content/index', 'doc_id' => $model['id']], '页面管理');
+                                    return Html::linkButton(['content/index', 'doc_id' => $model['id']], '章节管理');
                                 },
                                 'edit' => function ($url, $model, $key) {
                                     return Html::edit(['edit', 'id' => $model['id']]);

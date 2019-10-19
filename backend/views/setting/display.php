@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             <div class="box-body">
                  <div class="col-sm-12">
                      <?= $form->field($model, 'open_plaza')->checkbox(); ?>
+                     <?= $form->field($model, 'title')->textInput(); ?>
                     <?= $form->field($model, 'ip')->textarea(['style' => [
                             'height' => '200px'
                     ]])->hint('多个 ip 换行显示, 不填为不限制。 支持通配符 *，例如：127.0.0.*'); ?>

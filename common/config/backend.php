@@ -46,5 +46,13 @@ return [
 
             ],
         ],
+        [
+            'title' => '行为记录',
+            'route' => 'action/index',
+            'icon' => '',
+            'params' => [
+
+            ],
+        ],
     ],
 ];

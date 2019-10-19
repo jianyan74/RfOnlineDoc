@@ -5,7 +5,7 @@ use common\enums\StatusEnum;
 
 $this->title = $model->isNewRecord ? '创建' : '编辑';
 $this->params['breadcrumbs'][] = ['label' => '文档管理', 'url' => ['doc/index']];
-$this->params['breadcrumbs'][] = ['label' => '页面管理', 'url' => ['index', 'doc_id' => $model->doc_id]];
+$this->params['breadcrumbs'][] = ['label' => '章节管理', 'url' => ['index', 'doc_id' => $model->doc_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

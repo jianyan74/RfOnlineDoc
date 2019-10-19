@@ -18,6 +18,11 @@ use addons\RfOnlineDoc\common\models\Doc;
 class DocController extends BaseController
 {
     /**
+     * @var array
+     */
+    public $config;
+
+    /**
      * @throws UnauthorizedHttpException
      * @throws \yii\base\InvalidConfigException
      */
@@ -25,8 +30,8 @@ class DocController extends BaseController
     {
         parent::init();
 
-        $config = AddonHelper::getConfig();
-        if (isset($config['open_plaza']) && empty($config['open_plaza'])) {
+        $this->config = AddonHelper::getConfig();
+        if (isset($this->config['open_plaza']) && empty($this->config['open_plaza'])) {
             throw new UnauthorizedHttpException('广场已关闭');
         }
     }
@@ -58,6 +63,7 @@ class DocController extends BaseController
             'models' => $models,
             'pages' => $pages,
             'keyword' => $keyword,
+            'config' => $this->config,
             'cate_id' => $cate_id,
             'cates' => Yii::$app->docServices->cate->getMapList(),
         ]);

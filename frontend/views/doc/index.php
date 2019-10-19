@@ -3,7 +3,7 @@
 use common\helpers\Html;
 use common\helpers\Url;
 
-$this->title = "文档首页";
+$this->title = $config['title'] ?? '在线文档';
 
 ?>
 
@@ -109,7 +109,7 @@ $this->title = "文档首页";
                 <div class="col-lg-2"></div>
                 <div class="col-lg-10">
                     <div class="col-lg-12">
-                        <a href="<?= Url::to(['doc/index']); ?>" class="logo">在线文档</a>
+                        <a href="<?= Url::to(['doc/index']); ?>" class="logo"><?= $config['title'] ?? '在线文档'; ?></a>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 use common\helpers\Html;
 use jianyan\treegrid\TreeGrid;
 
-$this->title = '页面管理';
+$this->title = '章节管理';
 $this->params['breadcrumbs'][] = ['label' => '文档管理', 'url' => ['doc/index']];
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>

@@ -66,17 +66,12 @@ class ContentController extends BaseController
         Doc::updateAllCounters(['view' => 1], ['id' => $model['id']]);
         !is_array($model['nav']) && $model['nav'] = Json::decode($model['nav']);
 
-        // 广场开启
-        $config = AddonHelper::getConfig();
-        $open_plaza = $config['open_plaza'] ?? 1;
-
         return $this->render($this->action->id, [
             'model' => $model,
             'versions' => Yii::$app->docServices->doc->getVersions($model),
             'menus' => $content,
             'keyword' => $keyword,
             'defaultContent' => $defaultContent,
-            'open_plaza' => $open_plaza
         ]);
     }
 

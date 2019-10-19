@@ -32,10 +32,9 @@ class ContentService extends Service
             ->asArray()
             ->all();
 
+        $list = ArrayHelper::removeByValue($list, $id);
         $models = ArrayHelper::itemsMerge($list);
         $data = ArrayHelper::map(ArrayHelper::itemsMergeDropDown($models), 'id', 'title');
-
-        unset($data[$id]);
 
         return ArrayHelper::merge([0 => '顶级'], $data);
     }

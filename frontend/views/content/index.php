@@ -3,6 +3,7 @@
 use common\helpers\Html;
 use common\helpers\Url;
 use common\helpers\MarkdownHelper;
+use common\helpers\AddonHelper;
 
 $title = '';
 if (isset($defaultContent['title']) && !empty($defaultContent['title'])) {
@@ -16,6 +17,8 @@ if (!empty($title)) {
 }
 
 $this->title = Html::encode($this->title);
+
+$config = AddonHelper::getConfig();
 
 ?>
 
@@ -152,7 +155,7 @@ $this->title = Html::encode($this->title);
             </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <?php if (!empty($open_plaza)){ ?>
+                    <?php if (!empty($config['open_plaza'] ?? 1)){ ?>
                     <li class="dropdown">
                         <a href="<?= Url::to(['doc/index'])?>" data-method="post"><i class="fa fa fa-home"></i>首页</a>
                     </li>
@@ -190,7 +193,7 @@ $this->title = Html::encode($this->title);
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header" data-rel="external">在线文档</li>
+                <li class="header" data-rel="external"><?= $config['title'] ?? '在线文档'; ?></li>
                 <?= $this->render('_menu-tree', [
                     'menus' => $menus,
                     'uuid' => $model['uuid'],
