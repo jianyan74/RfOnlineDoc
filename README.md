@@ -1,6 +1,10 @@
 ## 在线文档
 
-基于 [rageframe](https://github.com/jianyan74/rageframe2) 的一款开源的内部文档管理系统
+属于开发者自己的文档
+
+### 前言
+
+基于 [RageFrame2](https://github.com/jianyan74/rageframe2) 的一款开源的内部文档管理系统
 
 目前主要包含以下功能
 
@@ -11,6 +15,8 @@
 - 文档历史记录
 - 文档差异对比
 - 文档历史数据还原
+- 文档编辑自动保存
+- 图片(截图)黏贴上传
 - 多人协作编辑友好提醒
 
 ### 功能快照
@@ -29,7 +35,7 @@
 
 ### 安装
 
-1、安装 rageframe (2.3.131以上)
+1、安装 RageFrame (2.3.131以上)
 
 项目介绍：https://github.com/jianyan74/rageframe2
 
@@ -41,8 +47,8 @@
 git clone https://github.com/jianyan74/RfOnlineDoc.git
 ```
 
-3、拷贝进 rageframe 根目录的 addons 目录下
+3、拷贝进 RageFrame 根目录的 addons 目录下
 
-4、rageframe 后台进入 系统管理->应用管理->安装插件->找到在线文档进行安装
+4、RageFrame 后台进入 系统管理->应用管理->安装插件->找到在线文档进行安装
 
 5、刷新整个后台页面后进入 应用中心->功能扩展->在线文档 进行查看

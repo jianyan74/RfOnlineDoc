@@ -115,7 +115,7 @@ class ContentController extends BaseController
     /**
      * 历史版本
      *
-     * @return string
+     * @return array|string
      * @throws \yii\base\InvalidConfigException
      */
     public function actionHistory()
@@ -123,8 +123,14 @@ class ContentController extends BaseController
         $this->layout = '@backend/views/layouts/default';
         $content_id = Yii::$app->request->get('content_id');
 
+        $history = Yii::$app->docServices->contentHistory->getListByContentId($content_id);
+        if (Yii::$app->request->get('page')){
+            return ResultDataHelper::json(200, '获取成功', $history);
+        }
+
         return $this->render($this->action->id, [
-            'history' => Yii::$app->docServices->contentHistory->getListByContentId($content_id)
+            'content_id' => $content_id,
+            'history' => $history,
         ]);
     }
 
@@ -155,9 +161,17 @@ class ContentController extends BaseController
     public function actionComparison()
     {
         $history_id = Yii::$app->request->get('history_id');
+        // 和当前版本对比
+        $is_newest = Yii::$app->request->get('is_newest');
 
+        $original = '';
         $changed = Yii::$app->docServices->contentHistory->findById($history_id);
-        if (!($original = Yii::$app->docServices->contentHistory->prevByContentId($changed['content_id'], $changed['serial_number']))) {
+        if ($is_newest == StatusEnum::ENABLED) {
+            $original = $changed;
+            $changed = Yii::$app->docServices->contentHistory->getLastByContentId($original['content_id']);
+        }
+
+        if (!$original && !($original = Yii::$app->docServices->contentHistory->prevByContentId($changed['content_id'], $changed['serial_number']))) {
             $original = [];
             $original['title'] = ' ';
             $original['content'] = ' ';

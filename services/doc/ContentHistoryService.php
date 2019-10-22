@@ -6,6 +6,7 @@ namespace addons\RfOnlineDoc\services\doc;
 use Yii;
 use addons\RfOnlineDoc\common\models\ContentHistory;
 use common\components\Service;
+use yii\data\Pagination;
 
 /**
  * Class ContentHistoryService
@@ -20,19 +21,22 @@ class ContentHistoryService extends Service
      */
     public function getListByContentId($content_id)
     {
-        $history = ContentHistory::find()
-            ->where(['content_id' => $content_id])
+        $data = ContentHistory::find()
+            ->where(['content_id' => $content_id]);
+        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => 10, 'validatePage' => false]);
+        $models = $data->offset($pages->offset)
             ->orderBy('id desc')
             ->with('manager')
             ->select('id, content_id, manager_id, serial_number, created_at')
             ->asArray()
+            ->limit($pages->limit)
             ->all();
 
-        foreach ($history as &$value) {
+        foreach ($models as &$value) {
             $value['created_at'] = Yii::$app->formatter->asDatetime($value['created_at']);
         }
 
-        return $history;
+        return $models;
     }
 
     /**

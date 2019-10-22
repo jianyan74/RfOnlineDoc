@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
         'js/fastclick.js',
         'js/adminlte.min.js',
         'js/demo.js',
+        'js/readingtime.min.js',
     ];
 
     public $depends = [

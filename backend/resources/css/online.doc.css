@@ -15,3 +15,26 @@ ins {
 .mailbox-attachment-info {
     margin-bottom: 5px;
 }
+
+.doc-version .active {
+    background: rgb(62, 142, 247);
+}
+.doc-version .active .mailbox-attachment-name,
+.doc-version .active .mailbox-attachment-size{
+    color: #ffffff;
+}
+
+.doc-version .active a:hover,
+.doc-version .active a:active,
+.doc-version .active a:focus {
+    color: #ffffff;;
+}
+
+.doc-version .active .btn-default,
+.doc-version .active .btn-default.focus,
+.doc-version .active .btn-default:focus,
+.doc-version .active .btn-default:hover {
+    color: #fff;
+    background-color: rgb(62, 142, 247);
+    border-color: rgb(62, 142, 247);
+}

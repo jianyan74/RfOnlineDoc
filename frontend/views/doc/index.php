@@ -60,9 +60,15 @@ $this->title = $config['title'] ?? '在线文档';
         border-color: #1dc9b7;
     }
 
+    .nav-stacked > li > a,
+    .nav > li > a:hover, .nav > li > a:active,
+    .nav > li > a:focus {
+        color: #636b6f;
+    }
+
     .nav-stacked > li.active > a, .nav-stacked > li.active > a:hover {
         background: transparent;
-        color: #444;
+        color: #636b6f;
         border-top: 0;
         border-left-color: #1dc9b7;
     }
@@ -151,7 +157,13 @@ $this->title = $config['title'] ?? '在线文档';
                 <div class="col-lg-9">
                     <?php foreach ($models as $model) { ?>
                         <div class="col-lg-4" style="margin-bottom: 30px">
-                            <span class="mailbox-attachment-icon"><i class="fa fa-file-text text-purple"></i></span>
+                            <span class="mailbox-attachment-icon">
+                                <?php if (!empty($model['cover'])) {?>
+                                    <img src="<?= $model['cover']; ?>" alt="" width="64" height="64">
+                                <?php }else{ ?>
+                                    <i class="fa fa-file-text text-purple"></i>
+                                <?php } ?>
+                            </span>
                             <div class="mailbox-attachment-info text-center">
                                 <a href="<?= Url::to(['content/index', 'uuid' => $model['uuid']]); ?>" class="mailbox-attachment-name"><?= Html::encode($model['title']); ?></a>
                                 <span class="mailbox-attachment-size">作者：<?= Html::encode($model['author']); ?></span>

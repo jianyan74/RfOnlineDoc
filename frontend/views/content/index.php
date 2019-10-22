@@ -28,8 +28,27 @@ $config = AddonHelper::getConfig();
         font-size: 13px;
     }
 
+    select.form-control {
+        padding-right: 30px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAFCAYAAABB9hwOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiNWZkMzNlMC0zNTcxLTI4NDgtYjA3NC01ZTRhN2RjMWVmNjEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTUxRUI3MDdEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTUxRUI3MDZEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ZWNiNjQzMjYtNDc1Yi01OTQxLWIxYjItNDVkZjU5YjZlODA2IiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6N2RlYzI2YWMtZGI5OC0xMWU1LWIwMjgtY2ZhNDhhOGNjNWY1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+AXTIGgAAAFRJREFUeNpidI1KSWFgYDBlwASngXjOrqWzGcgBTEC8DIjfo4m/h4qTDUAGfwPi+UD8Hyr2H8r/RqnBIHATiPdC2XuhfIoACxJ7PRDzQmmKAUCAAQDxOxHyb4DjOAAAAABJRU5ErkJggg==) center right no-repeat #fff;
+    }
+
+    .form-control {
+        box-sizing: border-box;
+        border-color: #e4eaec;
+        box-shadow: none;
+        -webkit-transition: box-shadow .25s linear, border .25s linear, color .25s linear, background-color .25s linear;
+        transition: box-shadow .25s linear, border .25s linear, color .25s linear, background-color .25s linear;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -webkit-font-smoothing: auto;
+        color: #76838f;
+    }
+
+    /*-----------------------adminlet-----------------------*/
+
     .content-wrapper {
-        background-color: #fff;
+        background-color: #f0f2f5 !important;
     }
 
     .skin-blue .sidebar-menu > li:hover > a,
@@ -69,13 +88,44 @@ $config = AddonHelper::getConfig();
         color: #666;
     }
 
+    .skin-black-light .main-header .navbar .nav > li > a:hover,
+    .skin-black-light .main-header .navbar .nav > li > a:active,
+    .skin-black-light .main-header .navbar .nav > li > a:focus,
+    .skin-black-light .main-header .navbar .nav .open > a,
+    .skin-black-light .main-header .navbar .nav .open > a:hover,
+    .skin-black-light .main-header .navbar .nav .open > a:focus,
+    .skin-black-light .main-header .navbar .nav > .active > a {
+        background: #fff;
+        color: #333;
+    }
+
+    .skin-black-light .sidebar-menu .treeview-menu > li.active > a,
+    .skin-black-light .sidebar-menu .treeview-menu > li > a:hover {
+        color: #3370ff;
+    }
+
+    .skin-black-light .main-sidebar {
+        border-right: 0;
+        box-shadow: 0 0 3px 0 rgba(82, 63, 105, 0.1);
+    }
+
     .main-header .logo {
-        font-size: 16px;
+        font-size: 18px;
         line-height: 50px;
+        color: #000;
     }
 
     .sidebar-menu > li > a {
         padding: 9px 5px 9px 15px;
+    }
+    .skin-black-light .main-header {
+        border-bottom: 0;
+        box-shadow: 0 0 3px 0 rgba(82, 63, 105, 0.1);
+    }
+
+    /*-----------------------文档-----------------------*/
+    .markdown-body {
+        color: #636b6f;
     }
 
     .markdown-toc ul {
@@ -87,35 +137,84 @@ $config = AddonHelper::getConfig();
     .markdown-toc li a {
         display: block;
         padding: 3px 0;
-        color: #000;
+        color: #666;
+    }
+
+    .markdown-body a {
+        color: #3370ff;
+        text-decoration: none;
+    }
+
+    a:hover, a:active, a:focus {
+        outline: none;
+        text-decoration: none;
+        color: #3370ff;
     }
 
     .markdown-toc a:hover, a:focus {
-        color: #72afd2;
-        text-decoration: underline;
+        color: #3370ff;
+        text-decoration: none;
     }
 
-    .versionDropdown{
+    .editormd-preview-container,
+    .editormd-html-preview {
+        padding: 0 30px 30px 30px;
+    }
+
+    .editormd-preview-container code,
+    .editormd-html-preview code {
+        background: rgba(90,87,87,0);
+        background-color: rgba(90, 87, 87, 0);
+        margin: 5px;
+        color: #858080;
+        border-radius: 4px;
+        background-color: #f9fafa;
+        border: 1px solid #e4e4e4;
+        max-width: 740px;
+        overflow-x: auto;
+        font-size: 14px;
+        padding: 1px 2px;
+    }
+
+    .editormd-preview-container pre.prettyprint,
+    .editormd-html-preview pre.prettyprint {
+        border: 0;
+        background-color: rgb(246, 248, 250);
+    }
+
+    .editormd-preview-container ol.linenums,
+    .editormd-html-preview ol.linenums {
+        color: rgb(246, 248, 250);
+        padding-left: 0;
+    }
+
+    li.L1, li.L3, li.L5, li.L7, li.L9 {
+        background: rgb(246, 248, 250);
+    }
+
+    .versionDropdown {
         padding-top: 8px;
         padding-right: 10px
     }
 
-    select.form-control {
-        padding-right: 30px;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAFCAYAAABB9hwOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiNWZkMzNlMC0zNTcxLTI4NDgtYjA3NC01ZTRhN2RjMWVmNjEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTUxRUI3MDdEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTUxRUI3MDZEQjk4MTFFNUI1NDA5QTcyNTlFQzRERTYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ZWNiNjQzMjYtNDc1Yi01OTQxLWIxYjItNDVkZjU5YjZlODA2IiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6N2RlYzI2YWMtZGI5OC0xMWU1LWIwMjgtY2ZhNDhhOGNjNWY1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+AXTIGgAAAFRJREFUeNpidI1KSWFgYDBlwASngXjOrqWzGcgBTEC8DIjfo4m/h4qTDUAGfwPi+UD8Hyr2H8r/RqnBIHATiPdC2XuhfIoACxJ7PRDzQmmKAUCAAQDxOxHyb4DjOAAAAABJRU5ErkJggg==) center right no-repeat #fff;
+    .content-title h3 {
+        font-size: 22px
     }
 
-    .form-control {
-        box-sizing: border-box;
-        border-color: #e4eaec;
-        box-shadow: none;
-        -webkit-transition: box-shadow .25s linear, border .25s linear, color .25s linear, background-color .25s linear;
-        transition: box-shadow .25s linear, border .25s linear, color .25s linear, background-color .25s linear;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -webkit-font-smoothing: auto;
-        color: #76838f;
+    .content-title .col-lg-12 {
+        background-color: #fff;
+        color: #636b6f;
     }
+
+    .right-nav {
+        background-color: #fff;
+        padding: 20px
+    }
+
+    .right-nav h5{
+        margin-top: 0;
+    }
+
 </style>
 
 <!-- Site wrapper -->
@@ -127,7 +226,7 @@ $config = AddonHelper::getConfig();
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">Doc</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b><?= $model['title']; ?></b></span>
+            <span class="logo-lg"><?= $model['title']; ?></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -142,11 +241,11 @@ $config = AddonHelper::getConfig();
                             <span class="icon-bar"></span>
                         </a>
                     </li>
-                    <?php foreach ($model['nav'] as $nav){ ?>
-                        <?php if (!empty($nav['key']) && !empty($nav['value'])){ ?>
+                    <?php foreach ($model['nav'] as $nav) { ?>
+                        <?php if (!empty($nav['key']) && !empty($nav['value'])) { ?>
                             <li class="dropdown notifications-menu">
                                 <a href="<?= $nav['value'] ?>" target="_blank">
-                                    <b><?= Html::encode($nav['key']); ?></b>
+                                    <?= Html::encode($nav['key']); ?>
                                 </a>
                             </li>
                         <?php } ?>
@@ -155,19 +254,16 @@ $config = AddonHelper::getConfig();
             </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <?php if (!empty($config['open_plaza'] ?? 1)){ ?>
-                    <li class="dropdown">
-                        <a href="<?= Url::to(['doc/index'])?>" data-method="post"><i class="fa fa fa-home"></i>首页</a>
-                    </li>
+                    <?php if (!empty($config['open_plaza'] ?? 1)) { ?>
+                        <li class="dropdown">
+                            <a href="<?= Url::to(['doc/index']) ?>" data-method="post"><i class="fa fa fa-home"></i>首页</a>
+                        </li>
                     <?php } ?>
-                    <li>
-                        <a href="javascript:void(0);">当前版本</a>
-                    </li>
                     <li class="versionDropdown">
                         <?= Html::dropDownList('version', $model['uuid'], $versions, [
                             'class' => 'form-control',
                             'id' => 'version',
-                        ])?>
+                        ]) ?>
                     </li>
                 </ul>
             </div>
@@ -210,20 +306,35 @@ $config = AddonHelper::getConfig();
         <!-- Main content -->
         <section class="content" style="overflow:auto;">
             <!-- Default box -->
-
-            <div class="col-lg-10">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-8">
                 <?php if (empty($defaultContent)) { ?>
                     <div class="content-null">文档不存在...</div>
                 <?php } elseif (empty($defaultContent['content'])) { ?>
                     <div class="content-null">还未填写任何信息...</div>
                 <?php } else { ?>
+                    <div class="text-left content-title">
+                        <div class="col-lg-12">
+                            <div class="content-header">
+                                <h3><i class="fa fa-file-text-o"></i> <?= Html::encode($title); ?></h3>
+                                <span>
+                                    <i class="fa fa-quote-left"></i>
+                                    创建于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['created_at'])?> /
+                                    更新于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['updated_at'])?>
+                                    <span class="readingTime"></span>
+                                </span>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
                     <?= MarkdownHelper::toHtml($defaultContent['content'], 'catalogue') ?>
                 <?php } ?>
             </div>
             <div class="col-lg-2" id="right-catalogue" style="overflow:auto;">
-                <div class="text-right"><h5><?= Html::encode($title); ?></h5></div>
-                <div class="text-left"><h5>目录</h5></div>
-                <div id="catalogue"></div>
+                <div class="right-nav">
+                    <div class="text-left"><h5>目录</h5></div>
+                    <div id="catalogue"></div>
+                </div>
             </div>
             <!-- /.box -->
         </section>
@@ -249,6 +360,23 @@ $config = AddonHelper::getConfig();
         $('.content').scroll(function () {
             let offsetTop = $('.content').scrollTop() + "px";
             $("#right-catalogue").animate({top: offsetTop}, {duration: 600, queue: false});
+        });
+
+        // 阅读所需时间
+        $('#markdown-view').readingTime({
+            readingTimeAsNumber: true,
+            wordsPerMinute: 135,
+            round: false,
+            lang: 'fr',
+            success: function(data) {
+                if (data.eta.seconds > 60) {
+                    $('.readingTime').text('/ 读完需要 ' + data.eta.minutes + ' 分钟')
+                }
+            },
+            error: function(data) {
+                console.log(data.error);
+
+            }
         });
     });
 

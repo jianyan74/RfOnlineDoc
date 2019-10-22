@@ -27,8 +27,11 @@ use common\helpers\Html;
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">历史版本</h3>
+                    <div class="pull-right">
+                        <label class="m-b-none"><input type="checkbox" id="is_newest" name="is_newest" value="1"> 与最新版比较</label>
+                    </div>
                 </div>
-                <div class="box-body version" style="overflow:auto;">
+                <div class="box-body doc-version" style="overflow:auto;">
                     <?php foreach ($history as $value) { ?>
                         <div class="mailbox-attachment-info" data-id="<?= $value['id']; ?>">
                             <a href="#" class="mailbox-attachment-name"><?= $value['manager']['username']; ?> 修改了文件</a>
@@ -43,17 +46,35 @@ use common\helpers\Html;
                         </div>
                     <?php } ?>
                 </div>
-                <div class="box-footer text-center">
-                    <span class="">单击标题进行对比</span>
+                <div class="box-footer text-center doc-more">
+                    <a href="#" class="blue more">加载更多</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- 添加模板 -->
+<script id="addHtml" type="text/html">
+    {{each data as value i}}
+    <div class="mailbox-attachment-info" data-id="{{value.id}}">
+        <a href="#" class="mailbox-attachment-name">{{value.manager.username}} 修改了文件</a>
+        <span class="mailbox-attachment-size">
+            {{value.created_at}}
+        </span>
+        <span class="mailbox-attachment-size">
+            <a href="#" class="mailbox-view">查看</a>
+            <a href="#" class="mailbox-restore">还原</a>
+            <span class="btn btn-default btn-xs pull-right">第{{value.serial_number}}版</span>
+        </span>
+    </div>
+    {{/each}}
+</script>
+
 <script>
     var old_id;
     var view_old_id;
+    var page = 2;
 
     $(window).resize(function () {
         autoChangeContent();
@@ -63,12 +84,41 @@ use common\helpers\Html;
         autoChangeContent();
 
         // 触发默认请求
-        $(".version div a:first").click();
+        $(".doc-version div a:first").click();
+    });
+
+    // 还原
+    $('.more').click(function () {
+        var content_id = <?= $content_id; ?>;
+
+        $.ajax({
+            type: "get",
+            url: "<?= Url::to(['history'])?>",
+            dataType: "json",
+            data: {content_id: content_id, page: page},
+            success: function (result) {
+                if (parseInt(result.code) === 200) {
+                    if (result.data.length === 0) {
+                        $('.doc-more').html('已加载全部');
+                    }
+
+                    var html = template('addHtml', result);
+                    $('.doc-version').append(html);
+
+                    page++;
+                } else {
+                    rfMsg(result.message);
+                }
+            }
+        });
     });
 
     // 查看
-    $('.mailbox-view').click(function () {
+    $(document).on("click", ".mailbox-view", function () {
         var id = $(this).parent().parent().data('id');
+        // 获取选中
+        $('.mailbox-attachment-info').removeClass('active');
+        $(this).parent().parent().addClass('active');
 
         if (view_old_id === id) {
             return;
@@ -88,11 +138,9 @@ use common\helpers\Html;
                     $('.diff-version').text('当前版本为第 ' + data.changed.serial_number + ' 版');
 
                     $(".diff1").html(data.changed.title);
-                    $(".diff2").html('<textarea id="content" class="form-control">'+data.changed.content+'</textarea>');
+                    $(".diff2").html('<textarea id="content" class="form-control">' + data.changed.content + '</textarea>');
 
                     autoChangeContent();
-
-
                 } else {
                     rfMsg(result.message);
                 }
@@ -101,8 +149,7 @@ use common\helpers\Html;
     });
 
     // 还原
-    $('.mailbox-restore').click(function () {
-
+    $(document).on("click", ".mailbox-restore", function () {
         var id = $(this).parent().parent().data('id');
 
         swal('确定还原至该版本么？', {
@@ -113,7 +160,7 @@ use common\helpers\Html;
             title: '确定还原至该版本么？',
             text: '请谨慎操作',
             // icon: "warning",
-        }).then(function(value) {
+        }).then(function (value) {
             switch (value) {
                 case "defeat":
                     $.ajax({
@@ -133,15 +180,22 @@ use common\helpers\Html;
                 default:
             }
         });
-    })
+    });
 
     // 对比
-    $('.mailbox-attachment-name').click(function () {
+    $(document).on("click", ".mailbox-attachment-name", function () {
         var id = $(this).parent().data('id');
+
+        // 获取选中
+        $('.mailbox-attachment-info').removeClass('active');
+        $(this).parent().addClass('active');
 
         if (old_id === id) {
             return;
         }
+
+        // 最新版本比较
+        var is_newest = $('#is_newest').is(':checked') ? 1 : 0;
 
         old_id = id;
         view_old_id = 0;
@@ -150,7 +204,7 @@ use common\helpers\Html;
             type: "get",
             url: "<?= Url::to(['comparison'])?>",
             dataType: "json",
-            data: {history_id: id},
+            data: {history_id: id, is_newest: is_newest},
             success: function (result) {
                 if (parseInt(result.code) === 200) {
                     var data = result.data;
@@ -176,12 +230,11 @@ use common\helpers\Html;
         });
     });
 
-
     function autoChangeContent() {
         // 改变框架高度
         var mainContent = window.innerHeight - 190;
         $(".diff2").height(mainContent);
-        $(".version").height(mainContent);
+        $(".doc-version").height(mainContent);
         $("#content").height(mainContent);
     }
 </script>
