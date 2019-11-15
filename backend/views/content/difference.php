@@ -14,8 +14,6 @@ use common\helpers\Html;
 </div>
 <div class="modal-body diff-wrapper">
     <div class="col-lg-12 diff"></div>
-    <textarea id="original" class="hide"><?= $original['content']; ?></textarea>
-    <textarea id="changed" class="hide"><?= $changed['content']; ?></textarea>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -24,8 +22,8 @@ use common\helpers\Html;
 <script>
     $(document).ready(function () {
         $(".diff-wrapper").prettyTextDiff({
-            originalContent: $('#original').val(),
-            changedContent: $('#changed').val(),
+            originalContent: "<?= Html::encode($original['content']); ?>",
+            changedContent: "<?= Html::encode($changed['content']); ?>",
             diffContainer: ".diff"
         });
     });

@@ -1,6 +1,6 @@
 <?php
 
-use addons\RfOnlineDoc\wechat\assets\AppAsset;
+use addons\RfOnlineDoc\html5\assets\AppAsset;
 use common\helpers\Html;
 
 AppAsset::register($this);

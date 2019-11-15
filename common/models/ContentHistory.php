@@ -2,7 +2,7 @@
 
 namespace addons\RfOnlineDoc\common\models;
 
-use common\models\sys\Manager;
+use common\models\backend\Member;
 use Yii;
 
 /**
@@ -61,15 +61,15 @@ class ContentHistory extends \common\models\base\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getManager()
+    public function getMember()
     {
-        return $this->hasOne(Manager::class, ['id' => 'manager_id'])->select('id, username');
+        return $this->hasOne(Member::class, ['id' => 'member_id'])->select('id, username');
     }
 
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            $this->manager_id = Yii::$app->user->id;
+            $this->member_id = Yii::$app->user->id;
         }
 
         return parent::beforeSave($insert);

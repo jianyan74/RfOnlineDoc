@@ -4,7 +4,7 @@ namespace addons\RfOnlineDoc\backend\controllers;
 
 use Yii;
 use common\helpers\ArrayHelper;
-use backend\interfaces\AddonsSetting;
+use common\interfaces\AddonsSetting;
 use addons\RfOnlineDoc\common\models\SettingForm;
 
 /**

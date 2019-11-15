@@ -2,19 +2,19 @@
 
 namespace addons\RfOnlineDoc\common\models;
 
-use common\helpers\TreeHelper;
 use Yii;
-use backend\components\Tree;
+use common\components\Tree;
 use common\behaviors\MerchantBehavior;
 use common\enums\StatusEnum;
 use common\helpers\ArrayHelper;
+use common\helpers\TreeHelper;
 
 /**
  * This is the model class for table "{{%addon_online_doc_content}}".
  *
  * @property int $id 主键
  * @property string $uuid uuid
- * @property int $manager_id 创建者id
+ * @property int $member_id 创建者id
  * @property int $doc_id 所属文档id
  * @property string $merchant_id 商户id
  * @property string $title 标题
@@ -32,6 +32,9 @@ use common\helpers\ArrayHelper;
  */
 class Content extends \common\models\base\BaseModel
 {
+    const TYPE_MARKDOWN = 1;
+    const TYPE_UEDITOR = 2;
+
     use Tree, MerchantBehavior;
 
     /**
@@ -50,6 +53,7 @@ class Content extends \common\models\base\BaseModel
         return [
             [
                 [
+                    'type',
                     'doc_id',
                     'merchant_id',
                     'sort',
@@ -80,6 +84,7 @@ class Content extends \common\models\base\BaseModel
         return [
             'id' => '主键',
             'uuid' => 'uuid',
+            'type' => '章节类型',
             'doc_id' => '所属文档id',
             'merchant_id' => '商户id',
             'title' => '标题',
@@ -129,7 +134,7 @@ class Content extends \common\models\base\BaseModel
     {
         if ($this->isNewRecord) {
 
-            $this->manager_id = Yii::$app->user->id;
+            $this->member_id = Yii::$app->user->id;
 
             if ($this->pid == 0) {
                 $this->tree = TreeHelper::defaultTreeKey();

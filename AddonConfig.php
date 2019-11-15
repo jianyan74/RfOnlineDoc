@@ -19,9 +19,9 @@ class AddonConfig
         'name' => 'RfOnlineDoc',
         'title' => '在线文档',
         'brief_introduction' => '在线文档管理',
-        'description' => '文档编辑',
+        'description' => '马克笔记文档编辑',
         'author' => '简言',
-        'version' => '1.0.0',
+        'version' => '1.1.0',
     ];
 
     /**
@@ -34,8 +34,10 @@ class AddonConfig
     public $appsConfig = [
         'backend' => 'common/config/backend.php',
         'frontend' => 'common/config/frontend.php',
-        'wechat' => 'common/config/wechat.php',
+        'merchant' => 'common/config/merchant.php',
+        'html5' => 'common/config/html5.php',
         'api' => 'common/config/api.php',
+        'oauth2' => 'common/config/oauth2.php',
     ];
 
     /**
@@ -69,6 +71,15 @@ class AddonConfig
     public $isRule = false;
 
     /**
+    * 商户路由映射
+    *
+    * 开启后无需再去商户应用端去开发程序，直接映射后台应用的控制器方法过去，菜单权限还需要单独配置
+    *
+    * @var bool
+    */
+    public $isMerchantRouteMap = true;
+
+    /**
      * 类别
      *
      * @var string
@@ -83,7 +94,7 @@ class AddonConfig
      *      'other'     => "其他",
      * ]
      */
-    public $group = 'plug';
+    public $group = 'biz';
 
     /**
      * 微信接收消息类别

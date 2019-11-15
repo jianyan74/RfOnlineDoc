@@ -118,6 +118,7 @@ $config = AddonHelper::getConfig();
     .sidebar-menu > li > a {
         padding: 9px 5px 9px 15px;
     }
+
     .skin-black-light .main-header {
         border-bottom: 0;
         box-shadow: 0 0 3px 0 rgba(82, 63, 105, 0.1);
@@ -158,12 +159,12 @@ $config = AddonHelper::getConfig();
 
     .editormd-preview-container,
     .editormd-html-preview {
-        padding: 0 30px 30px 30px;
+        padding: 10px 30px 30px 30px;
     }
 
     .editormd-preview-container code,
     .editormd-html-preview code {
-        background: rgba(90,87,87,0);
+        background: rgba(90, 87, 87, 0);
         background-color: rgba(90, 87, 87, 0);
         margin: 5px;
         color: #858080;
@@ -211,10 +212,19 @@ $config = AddonHelper::getConfig();
         padding: 20px
     }
 
-    .right-nav h5{
+    .right-nav h5 {
         margin-top: 0;
     }
 
+    .box {
+        border-top: 0;
+        padding: 20px;
+    }
+
+    .box-body img {
+        max-width: 100%;
+        display: block;
+    }
 </style>
 
 <!-- Site wrapper -->
@@ -307,7 +317,7 @@ $config = AddonHelper::getConfig();
         <section class="content" style="overflow:auto;">
             <!-- Default box -->
             <div class="col-lg-1"></div>
-            <div class="col-lg-8">
+            <div class="col-lg-<?= $defaultContent['type'] == 1 ? 8 : 10; ?>">
                 <?php if (empty($defaultContent)) { ?>
                     <div class="content-null">文档不存在...</div>
                 <?php } elseif (empty($defaultContent['content'])) { ?>
@@ -319,23 +329,35 @@ $config = AddonHelper::getConfig();
                                 <h3><i class="fa fa-file-text-o"></i> <?= Html::encode($title); ?></h3>
                                 <span>
                                     <i class="fa fa-quote-left"></i>
-                                    创建于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['created_at'])?> /
-                                    更新于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['updated_at'])?>
+                                    创建于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['created_at']) ?> /
+                                    更新于 <?= Yii::$app->formatter->asRelativeTime($defaultContent['updated_at']) ?>
                                     <span class="readingTime"></span>
                                 </span>
                                 <hr>
                             </div>
                         </div>
                     </div>
-                    <?= MarkdownHelper::toHtml($defaultContent['content'], 'catalogue') ?>
+                    <?php if ($defaultContent['type'] == 1) { ?>
+                        <?= MarkdownHelper::toHtml($defaultContent['content'], 'catalogue') ?>
+                    <?php } else { ?>
+                        <div class="col-lg-12" style="padding: 0">
+                            <div class="box">
+                                <div class="box-body">
+                                    <?= Html::decode($defaultContent['content']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 <?php } ?>
             </div>
-            <div class="col-lg-2" id="right-catalogue" style="overflow:auto;">
-                <div class="right-nav">
-                    <div class="text-left"><h5>目录</h5></div>
-                    <div id="catalogue"></div>
+            <?php if ($defaultContent['type'] == 1) { ?>
+                <div class="col-lg-2" id="right-catalogue" style="overflow:auto;">
+                    <div class="right-nav">
+                        <div class="text-left"><h5>目录</h5></div>
+                        <div id="catalogue"></div>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <!-- /.box -->
         </section>
         <!-- /.content -->
@@ -368,12 +390,12 @@ $config = AddonHelper::getConfig();
             wordsPerMinute: 135,
             round: false,
             lang: 'fr',
-            success: function(data) {
+            success: function (data) {
                 if (data.eta.seconds > 60) {
                     $('.readingTime').text('/ 读完需要 ' + data.eta.minutes + ' 分钟')
                 }
             },
-            error: function(data) {
+            error: function (data) {
                 console.log(data.error);
 
             }

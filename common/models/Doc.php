@@ -81,7 +81,7 @@ class Doc extends \common\models\base\BaseModel
             'nav' => '导航菜单',
             'seo_key' => 'seo关键字',
             'seo_content' => 'seo内容',
-            'cate_id' => '分类id',
+            'cate_id' => '分类',
             'description' => '描述',
             'position' => '推荐位',
             'content' => '文章内容',
@@ -132,6 +132,7 @@ class Doc extends \common\models\base\BaseModel
     {
         return $this->hasMany(Content::class, ['doc_id' => 'id'])
             ->select('id, uuid, doc_id, title, sort, pid')
+            ->where(['status' => StatusEnum::ENABLED])
             ->orderBy('sort asc');
     }
 

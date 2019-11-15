@@ -1,6 +1,8 @@
 <?php
 
+use common\helpers\Url;
 use common\helpers\Html;
+use common\helpers\AddonHelper;
 use jianyan\treegrid\TreeGrid;
 
 $this->title = '章节管理';
@@ -8,13 +10,36 @@ $this->params['breadcrumbs'][] = ['label' => '文档管理', 'url' => ['doc/inde
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 
+<style>
+    .top-create {
+        right: 0;
+        left: auto;
+    }
+
+    .btn-group.open .dropdown-toggle {
+        -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.125);
+        box-shadow: 0;
+    }
+</style>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title"><?= $this->title . ' · ' . $doc['title']; ?></h3>
                 <div class="box-tools">
-                    <?= Html::create(['edit', 'doc_id' => $doc_id]) ?>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-white dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">创建</button>
+                        <button type="button" class="btn btn-white dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu top-create" role="menu">
+                            <li><a href="<?= Url::to(['edit', 'doc_id' => $doc_id, 'type' => 1])?>">MarkDown</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?= Url::to(['edit', 'doc_id' => $doc_id, 'type' => 2])?>">普通章节</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="box-body table-responsive">
@@ -24,7 +49,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                     'parentColumnName' => 'pid',
                     'parentRootValue' => '0', //first parentId value
                     'pluginOptions' => [
-                        // 'initialState' => 'collapsed',
+                         'initialState' => 'collapsed',
                     ],
                     'options' => ['class' => 'table table-hover'],
                     'columns' => [
@@ -35,8 +60,20 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                                 $str = Html::tag('span', $model->title, [
                                     'class' => 'm-l-sm',
                                 ]);
-                                $str .= Html::a(' <i class="icon ion-android-add-circle"></i>',
-                                    ['edit', 'pid' => $model['id'], 'doc_id' => $doc_id]);
+
+                                $markdownUrl = Url::to(['edit', 'pid' => $model['id'], 'doc_id' => $doc_id, 'type' => 1]);
+                                $UEditorUrl = Url::to(['edit', 'pid' => $model['id'], 'doc_id' => $doc_id, 'type' => 2]);
+
+                                $str .= <<<HTML
+                    <div class="btn-group">
+                        <a class="icon ion-android-add-circle dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="$markdownUrl">MarkDown</a></li>
+                            <li class="divider"></li>
+                            <li><a href="$UEditorUrl">普通章节</a></li>
+                        </ul>
+                    </div>
+HTML;
 
                                 return $str;
                             },
@@ -48,6 +85,25 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
                             'headerOptions' => ['class' => 'col-md-1'],
                             'value' => function ($model, $key, $index, $column) {
                                 return Html::sort($model->sort);
+                            },
+                        ],
+                        [
+                            'label' => '类型',
+                            'format' => 'raw',
+                            'value' => function ($model, $key, $index, $column) {
+                                if ($model->type == 1) {
+                                    $str = Html::img(AddonHelper::file('img/editormd.png'), [
+                                        'width' => '15px',
+                                        'height' => '15px',
+                                    ]);
+                                } else {
+                                    $str = Html::img(AddonHelper::file('img/UEditor.png'), [
+                                        'width' => '32px',
+                                        'height' => '15px',
+                                    ]);
+                                }
+
+                                return $str;
                             },
                         ],
                         [

@@ -26,8 +26,8 @@ class ContentHistoryService extends Service
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => 10, 'validatePage' => false]);
         $models = $data->offset($pages->offset)
             ->orderBy('id desc')
-            ->with('manager')
-            ->select('id, content_id, manager_id, serial_number, created_at')
+            ->with('member')
+            ->select('id, content_id, member_id, serial_number, created_at')
             ->asArray()
             ->limit($pages->limit)
             ->all();

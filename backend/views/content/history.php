@@ -34,7 +34,7 @@ use common\helpers\Html;
                 <div class="box-body doc-version" style="overflow:auto;">
                     <?php foreach ($history as $value) { ?>
                         <div class="mailbox-attachment-info" data-id="<?= $value['id']; ?>">
-                            <a href="#" class="mailbox-attachment-name"><?= $value['manager']['username']; ?> 修改了文件</a>
+                            <a href="#" class="mailbox-attachment-name"><?= $value['member']['username']; ?> 修改了文件</a>
                             <span class="mailbox-attachment-size">
                                 <?= $value['created_at']; ?>
                             </span>
@@ -58,7 +58,7 @@ use common\helpers\Html;
 <script id="addHtml" type="text/html">
     {{each data as value i}}
     <div class="mailbox-attachment-info" data-id="{{value.id}}">
-        <a href="#" class="mailbox-attachment-name">{{value.manager.username}} 修改了文件</a>
+        <a href="#" class="mailbox-attachment-name">{{value.member.username}} 修改了文件</a>
         <span class="mailbox-attachment-size">
             {{value.created_at}}
         </span>

@@ -5,7 +5,7 @@ namespace addons\RfOnlineDoc\backend\controllers;
 use Yii;
 use common\enums\StatusEnum;
 use common\models\base\SearchModel;
-use common\components\Curd;
+use common\components\MerchantCurd;
 use addons\RfOnlineDoc\common\models\Cate;
 
 /**
@@ -15,7 +15,7 @@ use addons\RfOnlineDoc\common\models\Cate;
  */
 class CateController extends BaseController
 {
-    use Curd;
+    use MerchantCurd;
 
     /**
      * @var Cate

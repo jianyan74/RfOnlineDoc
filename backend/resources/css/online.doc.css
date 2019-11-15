@@ -24,6 +24,7 @@ ins {
     color: #ffffff;
 }
 
+.doc-version .active a,
 .doc-version .active a:hover,
 .doc-version .active a:active,
 .doc-version .active a:focus {

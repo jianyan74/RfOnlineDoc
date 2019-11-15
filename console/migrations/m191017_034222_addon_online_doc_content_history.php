@@ -12,7 +12,7 @@ class m191017_034222_addon_online_doc_content_history extends Migration
         /* 创建表 */
         $this->createTable('{{%addon_online_doc_content_history}}', [
             'id' => "int(11) NOT NULL AUTO_INCREMENT COMMENT '主键'",
-            'manager_id' => "int(11) NULL DEFAULT '0' COMMENT '创建者id'",
+            'member_id' => "int(11) NULL DEFAULT '0' COMMENT '创建者id'",
             'content_id' => "int(10) NULL DEFAULT '0' COMMENT '内容id'",
             'doc_id' => "int(10) NULL DEFAULT '0' COMMENT '所属文档id'",
             'merchant_id' => "int(10) unsigned NULL DEFAULT '0' COMMENT '商户id'",

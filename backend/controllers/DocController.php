@@ -5,7 +5,7 @@ namespace addons\RfOnlineDoc\backend\controllers;
 use Yii;
 use common\models\base\SearchModel;
 use common\enums\StatusEnum;
-use common\components\Curd;
+use common\components\MerchantCurd;
 use addons\RfOnlineDoc\common\models\Doc;
 
 /**
@@ -15,7 +15,7 @@ use addons\RfOnlineDoc\common\models\Doc;
  */
 class DocController extends BaseController
 {
-    use Curd;
+    use MerchantCurd;
 
     /**
      * @var Doc
@@ -44,7 +44,7 @@ class DocController extends BaseController
         $dataProvider = $searchModel
             ->search(Yii::$app->request->queryParams);
         $dataProvider->query
-            ->andWhere(['status' => StatusEnum::ENABLED])
+            ->andWhere(['>=', 'status', StatusEnum::DISABLED])
             ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
 
         return $this->render($this->action->id, [

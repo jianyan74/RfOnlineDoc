@@ -3,12 +3,13 @@
 namespace addons\RfOnlineDoc\backend\controllers;
 
 use addons\RfOnlineDoc\backend\forms\ContentForm;
+use common\helpers\Html;
 use Yii;
 use yii\data\ActiveDataProvider;
-use common\components\Curd;
+use common\components\MerchantCurd;
 use common\enums\StatusEnum;
 use common\helpers\StringHelper;
-use common\helpers\ResultDataHelper;
+use common\helpers\ResultHelper;
 use addons\RfOnlineDoc\common\models\Content;
 
 /**
@@ -18,7 +19,7 @@ use addons\RfOnlineDoc\common\models\Content;
  */
 class ContentController extends BaseController
 {
-    use Curd;
+    use MerchantCurd;
 
     /**
      * @var Content
@@ -53,6 +54,7 @@ class ContentController extends BaseController
         $query = Content::find()
             ->orderBy('sort asc, created_at asc')
             ->where(['doc_id' => $this->doc_id])
+            ->andWhere(['>=', 'status', StatusEnum::DISABLED])
             ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -79,6 +81,7 @@ class ContentController extends BaseController
         $model = $this->findFormModel($id);
         $model->doc_id = $this->doc_id;
         $model->pid = Yii::$app->request->get('pid', null) ?? $model->pid; // 父id
+        $model->type = !empty($model->type) ? $model->type : Yii::$app->request->get('type', 1); // 章节类型
         !$model->uuid && $model->uuid = StringHelper::uuid('uniqid');
 
         if (!$model->tmp_history_id) {
@@ -91,7 +94,8 @@ class ContentController extends BaseController
 
         return $this->render($this->action->id, [
             'model' => $model,
-            'dropDownList' => Yii::$app->docServices->content->getEditDropDownList($id),
+            'template' => Yii::$app->docServices->template->findByType($model->type),
+            'dropDownList' => Yii::$app->docServices->content->getDropDownForEdit($id),
         ]);
     }
 
@@ -125,7 +129,7 @@ class ContentController extends BaseController
 
         $history = Yii::$app->docServices->contentHistory->getListByContentId($content_id);
         if (Yii::$app->request->get('page')){
-            return ResultDataHelper::json(200, '获取成功', $history);
+            return ResultHelper::json(200, '获取成功', $history);
         }
 
         return $this->render($this->action->id, [
@@ -147,10 +151,10 @@ class ContentController extends BaseController
         if ($model) {
             Content::updateAll(['content' => $model['content']], ['id' => $model['content_id']]);
 
-            return ResultDataHelper::json(200, '还原成功');
+            return ResultHelper::json(200, '还原成功');
         }
 
-        return ResultDataHelper::json(422, '还原失败');
+        return ResultHelper::json(422, '还原失败');
     }
 
     /**
@@ -178,7 +182,10 @@ class ContentController extends BaseController
             $original['serial_number'] = '0';
         }
 
-        return ResultDataHelper::json(200, '获取成功', [
+        $original['content'] = Html::encode($original['content']);
+        $changed['content'] = Html::encode($changed['content']);
+
+        return ResultHelper::json(200, '获取成功', [
             'original' => $original,
             'changed' => $changed,
         ]);

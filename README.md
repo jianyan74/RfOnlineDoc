@@ -4,11 +4,12 @@
 
 ### 前言
 
-基于 [RageFrame2](https://github.com/jianyan74/rageframe2) 的一款开源的内部文档管理系统
+基于 [RageFrame2](https://github.com/jianyan74/rageframe2) 的一款免费开源的插件
 
 目前主要包含以下功能
 
-- Markdown 编辑
+- Markdown 章节编辑
+- 百度编辑器章节编辑
 - 文档管理
 - 系列文档
 - 文档 IP 地址限制访问
@@ -18,6 +19,7 @@
 - 文档编辑自动保存
 - 图片(截图)黏贴上传
 - 多人协作编辑友好提醒
+- 模板管理/插入
 
 ### 功能快照
 
@@ -35,7 +37,7 @@
 
 ### 安装
 
-1、安装 RageFrame (2.3.131以上)
+1、安装 RageFrame (2.4.0以上)
 
 项目介绍：https://github.com/jianyan74/rageframe2
 

@@ -22,11 +22,11 @@ class ContentService extends Service
      * @param string $id
      * @return array
      */
-    public function getEditDropDownList($id = '')
+    public function getDropDownForEdit($id = '')
     {
         $list = Content::find()
             ->where(['>=', 'status', StatusEnum::DISABLED])
-            ->andWhere(['merchant_id' => $this->getMerchantId()])
+            ->andFilterWhere(['merchant_id' => $this->getMerchantId()])
             ->select(['id', 'title', 'pid', 'level'])
             ->orderBy('sort asc')
             ->asArray()

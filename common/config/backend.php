@@ -16,9 +16,13 @@ return [
         'content/comparison' => '历史版本对比',
         'content/restore' => '历史记录还原',
         'cate/index' => '分类首页',
-        'cate/edit' => '分类编辑',
+        'cate/ajax-edit' => '分类编辑',
         'cate/ajax-update' => '分类状态修改',
         'cate/delete' => '分类删除',
+        'template/index' => '模板首页',
+        'template/edit' => '模板编辑',
+        'template/ajax-update' => '模板状态修改',
+        'template/delete' => '模板删除',
     ],
 
     // ----------------------- 快捷入口 ----------------------- //
@@ -28,6 +32,10 @@ return [
     ],
 
     // ----------------------- 菜单配置 ----------------------- //
+    'menuConfig' => [
+         'location' => 'addons', // default:系统顶部菜单;addons:应用中心菜单
+         'icon' => 'fa fa-puzzle-piece',
+    ],
 
     'menu' => [
         [
@@ -35,7 +43,7 @@ return [
             'route' => 'doc/index',
             'icon' => '',
             'params' => [
-            
+
             ],
         ],
         [
@@ -47,8 +55,8 @@ return [
             ],
         ],
         [
-            'title' => '行为记录',
-            'route' => 'action/index',
+            'title' => '模板管理',
+            'route' => 'template/index',
             'icon' => '',
             'params' => [
 
