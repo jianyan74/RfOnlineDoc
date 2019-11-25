@@ -317,7 +317,7 @@ $config = AddonHelper::getConfig();
         <section class="content" style="overflow:auto;">
             <!-- Default box -->
             <div class="col-lg-1"></div>
-            <div class="col-lg-<?= $defaultContent['type'] == 1 ? 8 : 10; ?>">
+            <div class="col-lg-<?= (isset($defaultContent['type']) && $defaultContent['type'] == 1) ? 8 : 10; ?>">
                 <?php if (empty($defaultContent)) { ?>
                     <div class="content-null">文档不存在...</div>
                 <?php } elseif (empty($defaultContent['content'])) { ?>
@@ -337,7 +337,7 @@ $config = AddonHelper::getConfig();
                             </div>
                         </div>
                     </div>
-                    <?php if ($defaultContent['type'] == 1) { ?>
+                    <?php if (isset($defaultContent['type']) && $defaultContent['type'] == 1) { ?>
                         <?= MarkdownHelper::toHtml($defaultContent['content'], 'catalogue') ?>
                     <?php } else { ?>
                         <div class="col-lg-12" style="padding: 0">
@@ -350,7 +350,7 @@ $config = AddonHelper::getConfig();
                     <?php } ?>
                 <?php } ?>
             </div>
-            <?php if ($defaultContent['type'] == 1) { ?>
+            <?php if (isset($defaultContent['type']) && $defaultContent['type'] == 1) { ?>
                 <div class="col-lg-2" id="right-catalogue" style="overflow:auto;">
                     <div class="right-nav">
                         <div class="text-left"><h5>目录</h5></div>

@@ -46,7 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'content')->widget(\common\widgets\ueditor\UEditor::class); ?>
                 <?php } ?>
                 <?= $form->field($model, 'tmp_history_id')->hiddenInput()->label(false); ?>
-                <?= $form->field($model, 'is_compel')->checkbox(); ?>
+                <?php if ($model->is_difference == StatusEnum::ENABLED) { ?>
+                    <?= $form->field($model, 'is_compel')->checkbox(); ?>
+                <?php } ?>
             </div>
             <div class="box-footer text-center">
                 <?php if ($model->is_difference == StatusEnum::ENABLED) { ?>

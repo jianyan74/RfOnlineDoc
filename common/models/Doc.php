@@ -133,7 +133,7 @@ class Doc extends \common\models\base\BaseModel
         return $this->hasMany(Content::class, ['doc_id' => 'id'])
             ->select('id, uuid, doc_id, title, sort, pid')
             ->where(['status' => StatusEnum::ENABLED])
-            ->orderBy('sort asc');
+            ->orderBy('sort asc, created_at asc');
     }
 
     /**
