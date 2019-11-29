@@ -2,6 +2,7 @@
 
 namespace addons\RfOnlineDoc\common\models;
 
+use common\behaviors\MerchantBehavior;
 use Yii;
 
 /**
@@ -19,6 +20,8 @@ use Yii;
  */
 class Template extends \common\models\base\BaseModel
 {
+    use MerchantBehavior;
+
     /**
      * {@inheritdoc}
      */
