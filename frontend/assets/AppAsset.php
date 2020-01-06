@@ -30,7 +30,7 @@ class AppAsset extends AssetBundle
         'js/jquery.slimscroll.min.js',
         'js/fastclick.js',
         'js/adminlte.min.js',
-        'js/demo.js',
+        // 'js/demo.js',
         'js/readingtime.min.js',
     ];
 

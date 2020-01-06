@@ -20,9 +20,6 @@ class Bootstrap implements AddonWidget
      */
     public function run($addon)
     {
-        // 动态注入服务
-        Yii::$app->set('docServices', [
-            'class' => 'addons\RfOnlineDoc\services\Application',
-        ]);
+
     }
 }

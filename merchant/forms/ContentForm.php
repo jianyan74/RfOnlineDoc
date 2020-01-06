@@ -1,6 +1,6 @@
 <?php
 
-namespace addons\RfOnlineDoc\backend\forms;
+namespace addons\RfOnlineDoc\merchant\forms;
 
 use Yii;
 use addons\RfOnlineDoc\common\models\Content;
@@ -8,7 +8,7 @@ use common\enums\StatusEnum;
 
 /**
  * Class ContentForm
- * @package addons\RfOnlineDoc\backend\forms
+ * @package addons\RfOnlineDoc\merchant\forms
  * @author jianyan74 <751393839@qq.com>
  */
 class ContentForm extends Content
@@ -58,7 +58,7 @@ class ContentForm extends Content
     public function verifyContent($attribute)
     {
         if ($this->is_compel == StatusEnum::DISABLED) {
-            $tmp_history_id = Yii::$app->docServices->contentHistory->getLastIdByContentId($this->id);
+            $tmp_history_id = Yii::$app->rfOnlineDocService->contentHistory->getLastIdByContentId($this->id);
 
             if (!empty($tmp_history_id) && $tmp_history_id != $this->tmp_history_id) {
                 $this->is_difference = StatusEnum::ENABLED;

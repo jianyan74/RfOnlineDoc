@@ -1,12 +1,12 @@
 <?php
 
-namespace addons\RfOnlineDoc\backend\controllers;
+namespace addons\RfOnlineDoc\merchant\controllers;
 
-use addons\RfOnlineDoc\backend\forms\ContentForm;
+use addons\RfOnlineDoc\merchant\forms\ContentForm;
 use common\helpers\Html;
 use Yii;
 use yii\data\ActiveDataProvider;
-use common\components\MerchantCurd;
+use common\traits\MerchantCurd;
 use common\enums\StatusEnum;
 use common\helpers\StringHelper;
 use common\helpers\ResultHelper;
@@ -14,7 +14,7 @@ use addons\RfOnlineDoc\common\models\Content;
 
 /**
  * Class ContentController
- * @package addons\RfOnlineDoc\backend\controllers
+ * @package addons\RfOnlineDoc\merchant\controllers
  * @author jianyan74 <751393839@qq.com>
  */
 class ContentController extends BaseController
@@ -41,7 +41,7 @@ class ContentController extends BaseController
         parent::init();
 
         $this->doc_id = Yii::$app->request->get('doc_id');
-        $this->doc = Yii::$app->docServices->doc->findById($this->doc_id);
+        $this->doc = Yii::$app->rfOnlineDocService->doc->findById($this->doc_id);
     }
 
     /**
@@ -55,7 +55,7 @@ class ContentController extends BaseController
             ->orderBy('sort asc, created_at asc')
             ->where(['doc_id' => $this->doc_id])
             ->andWhere(['>=', 'status', StatusEnum::DISABLED])
-            ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
+            ->andWhere(['merchant_id' => $this->getMerchantId()]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false
@@ -85,7 +85,7 @@ class ContentController extends BaseController
         !$model->uuid && $model->uuid = StringHelper::uuid('uniqid');
 
         if (!$model->tmp_history_id) {
-            $model->tmp_history_id = Yii::$app->docServices->contentHistory->getLastIdByContentId($id);
+            $model->tmp_history_id = Yii::$app->rfOnlineDocService->contentHistory->getLastIdByContentId($id);
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -94,8 +94,8 @@ class ContentController extends BaseController
 
         return $this->render($this->action->id, [
             'model' => $model,
-            'template' => Yii::$app->docServices->template->findByType($model->type),
-            'dropDownList' => Yii::$app->docServices->content->getDropDownForEdit($id),
+            'template' => Yii::$app->rfOnlineDocService->template->findByType($model->type),
+            'dropDownList' => Yii::$app->rfOnlineDocService->content->getDropDownForEdit($id),
         ]);
     }
 
@@ -111,8 +111,8 @@ class ContentController extends BaseController
         $content_id = Yii::$app->request->get('content_id');
 
         return $this->renderAjax($this->action->id, [
-            'changed' => Yii::$app->docServices->contentHistory->getLastByContentId($content_id),
-            'original' => Yii::$app->docServices->contentHistory->findById($tmp_history_id),
+            'changed' => Yii::$app->rfOnlineDocService->contentHistory->getLastByContentId($content_id),
+            'original' => Yii::$app->rfOnlineDocService->contentHistory->findById($tmp_history_id),
         ]);
     }
 
@@ -124,10 +124,10 @@ class ContentController extends BaseController
      */
     public function actionHistory()
     {
-        $this->layout = '@backend/views/layouts/default';
+        $this->layout = '@merchant/views/layouts/default';
         $content_id = Yii::$app->request->get('content_id');
 
-        $history = Yii::$app->docServices->contentHistory->getListByContentId($content_id);
+        $history = Yii::$app->rfOnlineDocService->contentHistory->getListByContentId($content_id);
         if (Yii::$app->request->get('page')){
             return ResultHelper::json(200, '获取成功', $history);
         }
@@ -147,7 +147,7 @@ class ContentController extends BaseController
     {
         $history_id = Yii::$app->request->get('history_id');
 
-        $model = Yii::$app->docServices->contentHistory->findById($history_id);
+        $model = Yii::$app->rfOnlineDocService->contentHistory->findById($history_id);
         if ($model) {
             Content::updateAll(['content' => $model['content']], ['id' => $model['content_id']]);
 
@@ -169,13 +169,13 @@ class ContentController extends BaseController
         $is_newest = Yii::$app->request->get('is_newest');
 
         $original = '';
-        $changed = Yii::$app->docServices->contentHistory->findById($history_id);
+        $changed = Yii::$app->rfOnlineDocService->contentHistory->findById($history_id);
         if ($is_newest == StatusEnum::ENABLED) {
             $original = $changed;
-            $changed = Yii::$app->docServices->contentHistory->getLastByContentId($original['content_id']);
+            $changed = Yii::$app->rfOnlineDocService->contentHistory->getLastByContentId($original['content_id']);
         }
 
-        if (!$original && !($original = Yii::$app->docServices->contentHistory->prevByContentId($changed['content_id'], $changed['serial_number']))) {
+        if (!$original && !($original = Yii::$app->rfOnlineDocService->contentHistory->prevByContentId($changed['content_id'], $changed['serial_number']))) {
             $original = [];
             $original['title'] = ' ';
             $original['content'] = ' ';
@@ -221,7 +221,7 @@ class ContentController extends BaseController
     protected function findFormModel($id)
     {
         /* @var $model \yii\db\ActiveRecord */
-        if (empty($id) || empty(($model = ContentForm::find()->where(['id' => $id])->andFilterWhere(['merchant_id' => $this->getMerchantId()])->one()))) {
+        if (empty($id) || empty(($model = ContentForm::findOne(['id' => $id, 'merchant_id' => $this->getMerchantId()])))) {
             $model = new ContentForm();
             return $model->loadDefaultValues();
         }

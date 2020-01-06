@@ -44,7 +44,7 @@ class ContentController extends BaseController
 
         // 根据关键字查找
         if ($keyword) {
-            $content = Yii::$app->docServices->content->getListByKeyword($model['id'], $keyword);
+            $content = Yii::$app->rfOnlineDocService->content->getListByKeyword($model['id'], $keyword);
             $defaultContent = $content[0] ?? '';
         } else {
             // 查找默认的数据
@@ -68,7 +68,7 @@ class ContentController extends BaseController
 
         return $this->render($this->action->id, [
             'model' => $model,
-            'versions' => Yii::$app->docServices->doc->getVersions($model),
+            'versions' => Yii::$app->rfOnlineDocService->doc->getVersions($model),
             'menus' => $content,
             'keyword' => $keyword,
             'defaultContent' => $defaultContent,

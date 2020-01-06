@@ -3,7 +3,7 @@
 namespace addons\RfOnlineDoc\common\models;
 
 use Yii;
-use common\components\Tree;
+use common\traits\Tree;
 use common\behaviors\MerchantBehavior;
 use common\enums\StatusEnum;
 use common\helpers\ArrayHelper;
@@ -175,7 +175,7 @@ class Content extends \common\models\base\BaseModel
             $model->merchant_id = $this->merchant_id;
             $model->content = $this->content;
             $model->title = $this->title;
-            $model->serial_number = Yii::$app->docServices->contentHistory->getSerialNumberIncrByContentId($this->id) + 1;
+            $model->serial_number = Yii::$app->rfOnlineDocService->contentHistory->getSerialNumberIncrByContentId($this->id) + 1;
             $model->save();
         }
 
@@ -199,7 +199,7 @@ class Content extends \common\models\base\BaseModel
         }
 
         // 更新章节数量
-        Yii::$app->docServices->doc->updateChapterNumberById($this->doc_id);
+        Yii::$app->rfOnlineDocService->doc->updateChapterNumberById($this->doc_id);
 
         parent::afterSave($insert, $changedAttributes);
     }

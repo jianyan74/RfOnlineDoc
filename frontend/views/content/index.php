@@ -51,6 +51,61 @@ $config = AddonHelper::getConfig();
         background-color: #f0f2f5 !important;
     }
 
+
+    .skin-blue-light .wrapper,
+    .skin-blue-light .main-sidebar,
+    .skin-blue-light .left-side,
+    .skin-black-light .wrapper,
+    .skin-black-light .main-sidebar,
+    .skin-black-light .left-side,
+    .skin-purple-light .wrapper,
+    .skin-purple-light .main-sidebar,
+    .skin-purple-light .left-side,
+    .skin-green-light .wrapper,
+    .skin-green-light .main-sidebar,
+    .skin-green-light .left-side,
+    .skin-red-light .wrapper,
+    .skin-red-light .main-sidebar,
+    .skin-red-light .left-side,
+    .skin-yellow-light .wrapper,
+    .skin-yellow-light .main-sidebar,
+    .skin-yellow-light .left-side {
+        background-color: #ffffff;
+    }
+
+    .skin-blue-light .sidebar-menu > li.header,
+    .skin-black-light .sidebar-menu > li.header,
+    .skin-purple-light .sidebar-menu > li.header,
+    .skin-green-light .sidebar-menu > li.header,
+    .skin-red-light .sidebar-menu > li.header,
+    .skin-yellow-light .sidebar-menu > li.header {
+        background: #ffffff;
+    }
+
+    .skin-blue-light .sidebar-menu > li > .treeview-menu,
+    .skin-black-light .sidebar-menu > li > .treeview-menu,
+    .skin-purple-light .sidebar-menu > li > .treeview-menu,
+    .skin-green-light .sidebar-menu > li > .treeview-menu,
+    .skin-red-light .sidebar-menu > li > .treeview-menu,
+    .skin-yellow-light .sidebar-menu > li > .treeview-menu {
+        background: #ffffff;
+    }
+
+    .skin-blue-light .sidebar-menu > li:hover > a,
+    .skin-blue-light .sidebar-menu > li.active > a,
+    .skin-black-light .sidebar-menu > li:hover > a,
+    .skin-black-light .sidebar-menu > li.active > a,
+    .skin-purple-light .sidebar-menu > li:hover > a,
+    .skin-purple-light .sidebar-menu > li.active > a,
+    .skin-green-light .sidebar-menu > li:hover > a,
+    .skin-green-light .sidebar-menu > li.active > a,
+    .skin-red-light .sidebar-menu > li:hover > a,
+    .skin-red-light .sidebar-menu > li.active > a,
+    .skin-yellow-light .sidebar-menu > li:hover > a,
+    .skin-yellow-light .sidebar-menu > li.active > a {
+        background: #ffffff;
+    }
+
     .skin-blue .sidebar-menu > li:hover > a,
     .skin-blue .sidebar-menu > li.active > a,
     .skin-blue .sidebar-menu > li.menu-open > a {

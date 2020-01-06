@@ -1,26 +1,26 @@
 <?php
 
-namespace addons\RfOnlineDoc\backend\controllers;
+namespace addons\RfOnlineDoc\merchant\controllers;
 
 use Yii;
-use common\components\MerchantCurd;
 use common\models\base\SearchModel;
 use common\enums\StatusEnum;
-use addons\RfOnlineDoc\common\models\Template;
+use common\traits\MerchantCurd;
+use addons\RfOnlineDoc\common\models\Doc;
 
 /**
- * Class TemplateController
- * @package addons\RfOnlineDoc\backend\controllers
+ * Class DocController
+ * @package addons\RfOnlineDoc\merchant\controllers
  * @author jianyan74 <751393839@qq.com>
  */
-class TemplateController extends BaseController
+class DocController extends BaseController
 {
     use MerchantCurd;
 
     /**
-     * @var string
+     * @var Doc
      */
-    public $modelClass = Template::class;
+    public $modelClass = Doc::class;
 
     /**
      * 首页
@@ -45,33 +45,36 @@ class TemplateController extends BaseController
             ->search(Yii::$app->request->queryParams);
         $dataProvider->query
             ->andWhere(['>=', 'status', StatusEnum::DISABLED])
-            ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
+            ->andWhere(['merchant_id' => $this->getMerchantId()]);
 
         return $this->render($this->action->id, [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'items' => Yii::$app->rfOnlineDocService->doc->getMapList(),
+            'cates' => Yii::$app->rfOnlineDocService->cate->getMapList(),
         ]);
     }
 
     /**
-     * 编辑
+     * 编辑/创建
      *
-     * @return mixed|string|\yii\console\Response|\yii\web\Response
-     * @throws \yii\base\ExitException
-     * @throws \Exception
+     * @return mixed
      */
     public function actionEdit()
     {
-        $id = Yii::$app->request->get('id');
+        $id = Yii::$app->request->get('id', null);
         $model = $this->findModel($id);
-        $model->type = !empty($model->type) ? $model->type : Yii::$app->request->get('type', 1); // 章节类型
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
 
+        $items = Yii::$app->rfOnlineDocService->doc->getMapList();
+        unset($items[$model['id']]);
+
         return $this->render($this->action->id, [
             'model' => $model,
+            'items' => $items,
+            'cates' => Yii::$app->rfOnlineDocService->cate->getMapList(),
         ]);
     }
 }

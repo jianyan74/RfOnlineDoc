@@ -9,20 +9,29 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
 
 ?>
 
+
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">基础设置</h3>
+                <h3 class="box-title">微信分享设置</h3>
             </div>
             <?php $form = ActiveForm::begin([]); ?>
             <div class="box-body">
                  <div class="col-sm-12">
-                     <?= $form->field($model, 'open_plaza')->checkbox(); ?>
-                     <?= $form->field($model, 'title')->textInput(); ?>
-                    <?= $form->field($model, 'ip')->textarea(['style' => [
-                            'height' => '200px'
-                    ]])->hint('多个 ip 换行显示, 不填为不限制。 支持通配符 *，例如：127.0.0.*'); ?>
+                    <?= $form->field($model, 'share_title')->textInput(); ?>
+                    <?= $form->field($model, 'share_cover')->widget(Files::class, [
+                        'type' => 'images',
+                        'theme' => 'default',
+                        'themeConfig' => [],
+                        'config' => [
+                            'pick' => [
+                                'multiple' => false,
+                            ],
+                        ]
+                    ]); ?>
+                    <?= $form->field($model, 'share_desc')->textarea(); ?>
+                    <?= $form->field($model, 'share_link')->textInput(); ?>
                 </div>
             </div>
             <div class="box-footer text-center">

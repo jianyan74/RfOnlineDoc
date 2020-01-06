@@ -65,7 +65,7 @@ class DocController extends BaseController
             'keyword' => $keyword,
             'config' => $this->config,
             'cate_id' => $cate_id,
-            'cates' => Yii::$app->docServices->cate->getMapList(),
+            'cates' => Yii::$app->rfOnlineDocService->cate->getMapList(),
         ]);
     }
 }

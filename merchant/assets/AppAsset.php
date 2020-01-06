@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     public $sourcePath = '@addons/RfOnlineDoc/merchant/resources/';
 
     public $css = [
+        'css/online.doc.css'
     ];
 
     public $js = [

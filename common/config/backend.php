@@ -1,6 +1,20 @@
 <?php
 
 return [
+    // ----------------------- 默认配置 ----------------------- //
+
+    'config' => [
+        // 菜单配置
+        'menu' => [
+            'location' => 'addons', // default:系统顶部菜单;addons:应用中心菜单
+            'icon' => 'fa fa-puzzle-piece',
+        ],
+        // 子模块配置
+        'modules' => [
+
+        ],
+    ],
+
     // ----------------------- 权限配置 ----------------------- //
 
     'authItem' => [
@@ -32,10 +46,6 @@ return [
     ],
 
     // ----------------------- 菜单配置 ----------------------- //
-    'menuConfig' => [
-         'location' => 'addons', // default:系统顶部菜单;addons:应用中心菜单
-         'icon' => 'fa fa-puzzle-piece',
-    ],
 
     'menu' => [
         [

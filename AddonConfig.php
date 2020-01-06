@@ -3,12 +3,14 @@
 namespace addons\RfOnlineDoc;
 
 use addons\RfOnlineDoc\common\components\Bootstrap;
+use addons\RfOnlineDoc\services\Application;
+use common\components\BaseAddonConfig;
 
 /**
  * Class Addon
  * @package addons\RfOnlineDoc
  */
-class AddonConfig
+class AddonConfig extends BaseAddonConfig
 {
     /**
      * 基础信息
@@ -48,6 +50,13 @@ class AddonConfig
     * @var Bootstrap
     */
     public $bootstrap = Bootstrap::class;
+
+    /**
+     * 服务层
+     *
+     * @var Application
+     */
+    public $service = Application::class;
 
     /**
      * 参数配置开启

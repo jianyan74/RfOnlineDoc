@@ -46,7 +46,7 @@ class DocService extends Service
      */
     public function updateChapterNumberById($id)
     {
-        $chapter = Yii::$app->docServices->content->getChapter($id);
+        $chapter = Yii::$app->rfOnlineDocService->content->getChapter($id);
 
         Doc::updateAll(['chapter_number' => count($chapter)], ['id' => $id]);
     }

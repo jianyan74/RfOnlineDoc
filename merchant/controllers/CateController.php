@@ -1,16 +1,16 @@
 <?php
 
-namespace addons\RfOnlineDoc\backend\controllers;
+namespace addons\RfOnlineDoc\merchant\controllers;
 
 use Yii;
 use common\enums\StatusEnum;
 use common\models\base\SearchModel;
-use common\components\MerchantCurd;
+use common\traits\MerchantCurd;
 use addons\RfOnlineDoc\common\models\Cate;
 
 /**
  * Class CateController
- * @package addons\RfTinyShop\backend\controllers
+ * @package addons\RfTinyShop\merchant\controllers
  * @author jianyan74 <751393839@qq.com>
  */
 class CateController extends BaseController
@@ -45,7 +45,7 @@ class CateController extends BaseController
             ->search(Yii::$app->request->queryParams);
         $dataProvider->query
             ->andWhere(['>=', 'status', StatusEnum::DISABLED])
-            ->andFilterWhere(['merchant_id' => $this->getMerchantId()]);
+            ->andWhere(['merchant_id' => $this->getMerchantId()]);
 
         return $this->render($this->action->id, [
             'dataProvider' => $dataProvider,
