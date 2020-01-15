@@ -24,8 +24,8 @@ class UnInstall extends Migration implements AddonWidget
     */
     public function run($addon)
     {
-//         MigrateHelper::downByPath([
-//             '@addons/RfOnlineDoc/console/migrations/'
-//         ]);
+         MigrateHelper::downByPath([
+             '@addons/RfOnlineDoc/console/migrations/'
+         ]);
     }
 }
